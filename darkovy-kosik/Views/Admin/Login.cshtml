@@ -1,0 +1,25 @@
+@{
+    ViewData["Title"] = "Administrace";
+}
+
+<div class="login">
+    <form asp-controller="Admin" asp-action="Login" method="post">
+        <div class="form_name">
+            <label>Uživatelské Jméno</label>
+            <input type="text" name="username" required />
+        </div>
+        <div class="form_name">
+            <label>Heslo</label>
+            <input type="password" name="password" required />
+        </div>
+        
+        <p class="error">@ViewBag.Error</p>
+        
+        <div class="buttons">
+            <a class="button" type="cancel" asp-controller="Home" asp-action="Index">Zpět</a>
+            <button type="submit">Přihlásit se</button>
+        </div>
+    </form>
+    
+    
+</div>

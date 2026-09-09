@@ -1,0 +1,45 @@
+﻿@{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var isActiveAdmin = currentController == "Admin" ? "active-admin-btn" : "";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>@ViewData["Title"] - Náš Seznam Přání</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/darkovy_kosik.styles.css" asp-append-version="true"/>
+</head>
+<body>
+<header>
+    
+    <span class="hideonmobile"></span>
+    
+    <a asp-controller="Home" asp-action="Index" class="logosection">
+        <img src="/img/logo.svg" class="headerlogo">
+        <h1 class="logotext">Náš Seznam Přání</h1>
+    </a>
+
+    <a asp-controller="Admin" asp-action="Panel" class="button @isActiveAdmin">
+        <img src="/img/user.png" class="admin_icon"> <p class="hideonmobile">Admin</p></a>
+
+</header>
+    <main>
+        @RenderBody()
+    </main>
+
+<footer>
+    <div>
+        &copy; 2026 - Náš Seznam Přání v2 od <a href="https://www.instagram.com/stpat__/">stpat_dp</a>
+    </div>
+</footer>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

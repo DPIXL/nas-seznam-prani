@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net10.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <RootNamespace>darkovy_kosik</RootNamespace>
+      <UserSecretsId>496466e2-e536-42b8-bdc9-2b3c70bbd296</UserSecretsId>
+  </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="BCrypt.Net-Next" Version="4.2.0" />
+      <PackageReference Include="HtmlAgilityPack" Version="1.12.4" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.11" />
+      <PackageReference Include="MySql.EntityFrameworkCore" Version="10.0.9" />
+      <PackageReference Include="SixLabors.ImageSharp" Version="2.1.9" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="wwwroot\img\uploads\" />
+    </ItemGroup>
+
+</Project>

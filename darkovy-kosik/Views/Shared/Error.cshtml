@@ -1,0 +1,13 @@
+﻿@model ErrorViewModel
+@{
+    ViewData["Title"] = "Chyba";
+}
+
+<h1 class="text-danger">Chyba!</h1>
+<h2 class="text-danger">Bohužel se stala chyba. S nejvyšší pravděpodobností je databáze momentálně offline, tedy vyčkejte než bude opět online. V jiném případě kontaktuje administrátora stránky (Štěpán V. Patejdl).</h2>
+
+@if (Model.ShowRequestId) {
+    <p>
+        <strong>Request ID:</strong> <code>@Model.RequestId</code>
+    </p>
+}

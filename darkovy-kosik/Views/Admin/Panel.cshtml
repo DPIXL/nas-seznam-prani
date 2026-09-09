@@ -1,0 +1,141 @@
+@model darkovy_kosik.DTO.PanelDTO
+
+@{
+    ViewData["Title"] = "Administrace";
+}
+
+<div class="admin_panel">
+    <div class="left_side">
+        <form asp-controller="Admin" asp-action="AddItem" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="Item.UserId" />
+            <div class="group">
+                <label asp-for="Item.Name">Název</label>
+                <input asp-for="Item.Name" type="text"/>
+            </div>
+            <span asp-validation-for="Item.Name" class="error"></span>
+            <div class="group">
+                <label asp-for="Item.Price">Cena</label>
+                <input asp-for="Item.Price" type="number" step="0.01"/>
+            </div>
+            <span asp-validation-for="Item.Price" class="error"></span>
+            <div class="group">
+                <label asp-for="Item.Link">Odkaz</label>
+                <input asp-for="Item.Link" type="url"/>
+            </div>
+            <span></span>
+            <div class="group">
+                <label>Vlastní obrázek (volitelné)</label>
+    
+                <!-- Hidden input linked to label by id -->
+                <input type="file" id="file-upload" name="uploadedImage" accept="image/*" class="hidden-file-input" />
+    
+                <div class="file-upload-wrapper">
+                    <label for="file-upload" class="button">Vybrat soubor</label>
+                    <span id="file-chosen">Žádný soubor nevybrán</span>
+                </div>
+            </div>
+            <span asp-validation-for="Item.Link" class="error"></span>
+
+            <button type="submit">Přidat Dárek</button>
+        </form>
+    </div>
+    
+    <div class="right_side">
+        <div class="gifts_list">
+            @for (int i = Model.Items.Count-1; i >= 0; i--) {
+                <div class="item_card">
+                    <span class="image_part">
+                        <img src="@Model.Items[i].ImageUrl" class="item_photo"/>
+                        <form asp-controller="Admin" asp-action="ChangeImage" method="post" enctype="multipart/form-data">
+                            <input type="hidden" name="itemId" value="@Model.Items[i].Id"/>
+                            
+                            <input type="file" id="upload-@Model.Items[i].Id" required name="uploadedImage" accept="image/*" class="hidden-file-input" onchange="updateFileName(this, 'filename-@Model.Items[i].Id', 'submit-@Model.Items[i].Id')" />
+    
+                            <div class="file-upload-wrapper-specific">
+                                <label for="upload-@Model.Items[i].Id" class="button">Vybrat soubor</label>
+                                <span id="filename-@Model.Items[i].Id" class="file-name">Žádný soubor nevybrán</span>
+                            </div>
+                            
+                            <button type="submit" disabled id="submit-@Model.Items[i].Id">Nahrát</button>
+                        </form>
+                    </span>
+        <span class="popis">
+            <h1>@Model.Items[i].Name</h1>
+            <p class="cena">@Model.Items[i].Price Kč</p>
+        </span>
+
+        <form asp-controller="Admin" asp-action="DeleteItem" method="post">
+            <input type="hidden" name="itemId" value="@Model.Items[i].Id"/>
+            <input type="hidden" name="userId" value="@Model.Items[i].UserId"/>
+
+            <button type="submit" class="delete">Smazat</button>
+        </form>
+    </div>
+            }
+        </div>
+    </div>
+    
+    <div class="user_actions">
+    <button onclick="event.stopPropagation(); openModal()" class="changePasswordButton link">Změnit Heslo</button>
+    <a asp-controller="Admin" asp-action="Logout" class="button logoutButton" type="cancel">Odhlásit se</a>
+    </div>
+</div>
+
+<div id="changePasswordModal" class="modal-overlay">
+    <div class="modal-card">
+        <h2>Změnit Heslo</h2>
+        <p>Zde si můžete změnit vaše heslo.</p>
+        
+        <form asp-controller="Admin" asp-action="ChangePassword" method="post">
+            <div class="group">
+                <label for="newPassword">Vaše nové heslo:</label>
+                <input type="text" id="newPassword" name="newPassword" required />
+            </div>
+            
+            
+            <div class="modal-actions">
+                <button type="button" class="delete" onclick="closeModal()">Zrušit</button>
+                <button type="submit">Aktualizovat</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function openModal() {
+        
+        document.getElementById('changePasswordModal').classList.add('show');
+    }
+
+    function closeModal() {
+        document.getElementById('changePasswordModal').classList.remove('show');
+    }
+    
+    const fileInput = document.getElementById('file-upload');
+    const fileChosen = document.getElementById('file-chosen');
+
+    fileInput.addEventListener('change', function () {
+        if (this.files && this.files.length > 0) {
+            fileChosen.textContent = this.files[0].name;
+            fileChosen.style.color = 'inherit';
+        } else {
+            fileChosen.textContent = 'Žádný soubor nevybrán';
+            fileChosen.style.color = '#888';
+        }
+    });
+
+    function updateFileName(inputElement, textSpanId, submitBtnId) {
+        const textSpan = document.getElementById(textSpanId);
+        const submitBtn = document.getElementById(submitBtnId);
+
+        if (inputElement.files && inputElement.files.length > 0) {
+            textSpan.textContent = inputElement.files[0].name;
+            
+            submitBtn.disabled = false;
+        } else {
+            textSpan.textContent = "Není vybrán žádný soubor";
+            
+            submitBtn.disabled = true;
+        }
+    }
+</script>
