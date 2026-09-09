@@ -7,7 +7,10 @@
 <div class="admin_panel">
     <div class="left_side">
         <form asp-controller="Admin" asp-action="AddItem" method="post" enctype="multipart/form-data">
-            <input type="hidden" asp-for="Item.UserId" />
+            
+            <h1>Přidat dárek</h1>
+            <span></span>
+            <input type="hidden" asp-for="Item.UserId"/>
             <div class="group">
                 <label asp-for="Item.Name">Název</label>
                 <input asp-for="Item.Name" type="text"/>
@@ -25,10 +28,10 @@
             <span></span>
             <div class="group">
                 <label>Vlastní obrázek (volitelné)</label>
-    
+
                 <!-- Hidden input linked to label by id -->
-                <input type="file" id="file-upload" name="uploadedImage" accept="image/*" class="hidden-file-input" />
-    
+                <input type="file" id="file-upload" name="uploadedImage" accept="image/*" class="hidden-file-input"/>
+
                 <div class="file-upload-wrapper">
                     <label for="file-upload" class="button">Vybrat soubor</label>
                     <span id="file-chosen">Žádný soubor nevybrán</span>
@@ -39,6 +42,8 @@
             <button type="submit">Přidat Dárek</button>
         </form>
     </div>
+    
+    <div class="coolseparator hideondesktop"></div>
     
     <div class="right_side">
         <div class="gifts_list">

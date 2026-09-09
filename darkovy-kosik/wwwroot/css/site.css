@@ -298,6 +298,7 @@ p.error, span.error {
       p.error {
         margin-top: 10px;
         margin-bottom: 0;
+        text-align: center;
       }
     }
     
@@ -434,13 +435,27 @@ a.button[type="link"], button.link {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: calc(100% - 20vh);
+    height: calc(100% - 10vh);
+    
+    h1 {
+      align-self: start;
+      width: 100%;
+      background-color: white;
+      color: black;
+      font-weight: bolder;
+      padding: 0 10px;
+    }
     
     form {
       display: flex;
       flex-direction: column;
       align-items: flex-end;
       gap: 20px;
+
+      padding: 20px;
+      border: solid 2px #616161;
+      backdrop-filter: blur(20px);
+      border-radius: 2rem;
       
       .group {
         label {
@@ -509,6 +524,7 @@ a.button[type="link"], button.link {
 
           p {
             font-size: 28px;
+            text-align: center;
           }
         }
 
@@ -617,7 +633,24 @@ footer {
   }
 }
 
+.hideondesktop {
+  display: none;
+}
+
+.coolseparator {
+  margin: 0;
+  padding: 5px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border-radius: 2rem;
+}
+
 @media (max-aspect-ratio: 1/1) {
+  
+  .hideondesktop {
+    display: block;
+  }
   
   .modal-card {
     margin: 10px;
@@ -732,18 +765,21 @@ footer {
     flex-direction: column;
     
     .left_side {
-      margin-top: 40px;
+      margin-top: 10px;
     }
     
     .right_side {
+      
       .gifts_list {
         max-height: 100%;
+        
+        padding-top: 0;
         
         .item_card {
           display: grid;
           grid-template-areas: 
           "img popis popis"
-          ". button button";
+          "img button button";
           
           
           min-height: auto;
@@ -752,20 +788,21 @@ footer {
             grid-area: popis;
           }
           form {
+            align-self: end;
             display: flex;
             grid-area: button;
-            align-items: center;
+            align-items: end;
             justify-content: center;
           }
           
           img {
-            grid-area: img;
             aspect-ratio: 1/1;
             height: auto;
             width: 12vh;
           }
           
           .image_part {
+            grid-area: img;
             width: 12vh;
             
             form {
