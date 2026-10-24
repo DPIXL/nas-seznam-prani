@@ -1,10 +1,13 @@
 body {
   display: flex;
   flex-direction: column;
-  background-image: url("../img/obloha.jpg");
+  background: url("../img/nsp_background.svg");
   background-size: cover;
+  background-attachment: fixed;
   color: white;
   min-height: 100vh;
+
+  font-family: 'Google Sans', sans-serif;
 }
 
 header {
@@ -248,13 +251,14 @@ p.error, span.error {
     
     .item_card {
       padding: 20px;
-      border: solid 2px #616161;
+      border: solid 1px #616161;
       border-radius: 2rem;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
       min-height: 45vh;
+      background-color: rgb(255 255 255 / 0.1);
       backdrop-filter: blur(10px);
 
       text-decoration: none;
@@ -451,11 +455,11 @@ a.button[type="link"], button.link {
       flex-direction: column;
       align-items: flex-end;
       gap: 20px;
-
+      background-color: rgb(255 255 255 / 0.1);
       padding: 20px;
-      border: solid 2px #616161;
-      backdrop-filter: blur(20px);
+      border: solid 1px #616161;
       border-radius: 2rem;
+      backdrop-filter: blur(10px);
       
       .group {
         label {
@@ -488,13 +492,14 @@ a.button[type="link"], button.link {
 
       .item_card {
         padding: 20px;
-        border: solid 2px #616161;
+        border: solid 1px #616161;
         border-radius: 2rem;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
         min-height: 20vh;
+        background-color: rgb(255 255 255 / 0.1);
         backdrop-filter: blur(10px);
 
         transition: transform 0.3s ease;
@@ -619,9 +624,9 @@ a.button[type="link"], button.link {
 footer {
   padding: 0 60px;
   margin-top: auto;
-  background-color: rgba(40,40,40,0.5);
-  backdrop-filter: blur(10px);
+  background-color: rgb(0 0 0 / 0.5);
   height: 60px;
+  backdrop-filter: blur(10px);
   
   display: flex;
   flex-direction: row;
