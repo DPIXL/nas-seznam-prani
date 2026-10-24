@@ -13,16 +13,18 @@ body {
 header {
   
   position: sticky;
-  top: 10px;
+  top: 0;
   z-index: 999;
   
   padding: 0 60px;
-  margin: 10px 10px 0 10px;
-  border-radius: 1rem;
+  margin: 0;
+  margin-bottom: 10px;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
   
   background-color: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(10px);
-  border: #676767 2px solid;
+  border-bottom: white 2px solid;
   color: black;
   
   display: flex;
@@ -108,10 +110,11 @@ main {
       display: flex;
       align-items: end;
       justify-content: center;
-      
+
+      container-type: inline-size;
       h1 {
         color: white;
-        font-size: 4rem;
+        font-size: 20cqw;
         font-weight: bolder;
         text-align: center;
       }
@@ -678,18 +681,11 @@ footer {
     margin-right: 0;
     margin-left: 0;
     margin-bottom: 20px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
     padding-bottom: 10px;
     padding-left: 10px;
     padding-right: 20px;
     padding-top: 10px;
     justify-content: space-between;
-    
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-color: white;
     
     .logosection {
       align-items: center;
