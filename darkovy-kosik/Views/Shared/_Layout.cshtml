@@ -1,4 +1,5 @@
-﻿@{
+﻿@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+@{
     var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
     var isActiveAdmin = currentController == "Admin" ? "active-admin-btn" : "";
 }
@@ -20,22 +21,22 @@
 </head>
 <body>
 <header>
-    
     <span class="hideonmobile"></span>
-    
     <a asp-controller="Home" asp-action="Index" class="logosection">
         <img src="/img/logo.svg" class="headerlogo">
         <h1 class="logotext">Náš Seznam Přání</h1>
     </a>
-
     <a asp-controller="Admin" asp-action="Panel" class="button @isActiveAdmin">
-        <img src="/img/user.png" class="admin_icon"> <p class="hideonmobile">Admin</p></a>
-
+        <img src="/img/user.png" class="admin_icon"><p class="hideonmobile">Admin</p></a>
 </header>
+@if (!Context.Request.Headers["User-Agent"].ToString().Contains("WishlistApp")) {
+    <a class="button download_button" href="@Configuration["AppLinks:ApkDownloadUrl"]">
+        <img src="/img/download.png" class="admin_icon"><p>Stáhnout Aplikaci</p>
+    </a>
+}
     <main>
         @RenderBody()
     </main>
-
 <footer>
     <div>
         &copy; 2026 - Náš Seznam Přání v2 od <a href="https://www.instagram.com/stpat__/">stpat_dp</a>

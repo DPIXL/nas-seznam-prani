@@ -79,7 +79,6 @@ header {
       margin-right: 5px;
     }
   }
-  
   .active-admin-btn {
     background-color: white !important;
     color: black !important;
@@ -87,6 +86,10 @@ header {
        filter: invert(1);
      }
   }
+}
+
+a.download_button {
+  display: none !important;
 }
 
 main {
@@ -680,7 +683,6 @@ footer {
     margin-top: 0;
     margin-right: 0;
     margin-left: 0;
-    margin-bottom: 20px;
     padding-bottom: 10px;
     padding-left: 10px;
     padding-right: 20px;
@@ -709,6 +711,36 @@ footer {
     
     h1 {
       font-size: 2rem;
+    }
+  }
+  
+  main {
+    margin-top: 10px;
+  }
+
+  a.download_button {
+    display: flex !important;
+    position: sticky;
+    z-index: 9999;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+
+    background-image: linear-gradient(rgba(38, 255, 0, 0.3), rgba(38, 255, 0, 0.3));
+    
+    p {
+      padding: 0;
+      margin: 0;
+    }
+
+    img {
+      width: 16px;
+      height: auto;
+      margin-right: 5px;
     }
   }
   
