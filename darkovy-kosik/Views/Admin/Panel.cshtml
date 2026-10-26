@@ -3,7 +3,10 @@
 @{
     ViewData["Title"] = "Administrace";
 }
-
+<div class="user_actions">
+    <button onclick="event.stopPropagation(); openModal()" class="changePasswordButton link">Změnit Heslo</button>
+    <a asp-controller="Admin" asp-action="Logout" class="button logoutButton" type="cancel">Odhlásit se</a>
+</div>
 <div class="admin_panel">
     <div class="left_side">
         <form asp-controller="Admin" asp-action="AddItem" method="post" enctype="multipart/form-data">
@@ -78,11 +81,6 @@
     </div>
             }
         </div>
-    </div>
-    
-    <div class="user_actions">
-    <button onclick="event.stopPropagation(); openModal()" class="changePasswordButton link">Změnit Heslo</button>
-    <a asp-controller="Admin" asp-action="Logout" class="button logoutButton" type="cancel">Odhlásit se</a>
     </div>
 </div>
 

@@ -1,8 +1,128 @@
+@using System.Security.Claims
 @model List<Family>
+
+@{
+    int.TryParse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value, out int currentUserId);
+}
+
 <div class="card_container">
     @for (int i = 1; i <= @Model.Count; i++) {
-        <a asp-controller="Family" asp-action="Index" asp-route-id=@i class="category_card" style="background-color: #151515">
-            <h1>@Model[i-1].FamilyName</h1>
-        </a>
+        <span class="family_card_container">
+            <a asp-controller="Family" asp-action="Index" asp-route-id=@Model[i - 1].Id class="category_card" style="background-color: #151515">
+                <h1>@Model[i - 1].FamilyName</h1>
+            </a>
+            @if (currentUserId > 0 && currentUserId == @Model[i - 1].AdminUserId) {
+                <span class="family_actions">
+                    <button class="button" onclick="openManageUsersModal(@Model[i - 1].Id)">Členové</button>
+                    <button class="delete" onclick="openRemoveFamilyModal(@Model[i - 1].Id)">Odebrat</button>
+                </span>   
+            }
+        </span>
     }
 </div>
+<button style="margin-top: 20px" class="link" onclick="openAddFamilyModal()">Založit novou rodinu</button>
+
+
+<div id="addFamilyModal" class="modal-overlay">
+    <div class="modal-card">
+        <h2>Přidat rodinu</h2>
+        <p>Zde můžete vytvořit novou rodinnou skupinu, a později do ní pozvat členy.</p>
+        <form asp-controller="Home" asp-action="AddFamily" method="post">
+            <div class="group">
+                <label for="familyName">Název rodiny:</label>
+                <input type="text" id="familyName" name="familyName" required />
+            </div>
+            
+            <div class="modal-actions">
+                <button type="button" class="delete" onclick="closeAddFamilyModal()">Zrušit</button>
+                <button type="submit">Založit Rodinu</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="removeFamilyModal" class="modal-overlay">
+    <div class="modal-card">
+        <h2>Odebrat rodinu</h2>
+        <p class="error">Jste si jistí, že chcete odebrat tuto rodinu?</p>
+        <form asp-controller="Home" asp-action="RemoveFamily" method="post">
+            <input type="hidden" name="id" id="idid">
+            <div class="modal-actions">
+                <button type="button" class="link" onclick="closeRemoveFamilyModal()">Zrušit</button>
+                <button type="submit" class="delete">Odebrat Rodinu</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="manageUsersModal" class="modal-overlay">
+    <div class="modal-card">
+        <h2>Přidat/Odebrat uživatele</h2>
+        <p>Zde můžete přidat uživatele do vaší rodiny zadáním jeho Emailu.</p>
+        <form asp-controller="Home" asp-action="AddUserToFamily" method="post">
+            <input type="hidden" name="id" id="idid">
+            <div class="group">
+                <label for="familyName">Email Uživatele:</label>
+                <input type="email" id="email" name="email" required />
+            </div>
+            <p class="error">@TempData["Error"]</p>
+            <div class="modal-actions">
+                <button type="button" class="delete" onclick="closeManageUsersModal()">Zrušit</button>
+                <button type="submit">Přidat Uživatele</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    
+    @if (TempData["AddUserErrored"] as bool? == true) {
+        @:openManageUsersModal(@TempData["ErroredFamilyId"]);
+    }
+    
+    function openAddFamilyModal() {
+        document.getElementById('addFamilyModal').classList.add('show');
+    }
+
+    function closeAddFamilyModal() {
+
+        document.getElementById('addFamilyModal').classList.remove('show');
+        
+        setTimeout(() => {
+            document.getElementById('familyName').value = '';
+        }, 300);
+    }
+
+    function openRemoveFamilyModal(id) {
+        const removeFamilyModal = document.getElementById('removeFamilyModal');
+        removeFamilyModal.classList.add('show');
+        removeFamilyModal.querySelector('#idid').value = id;
+    }
+
+    function closeRemoveFamilyModal() {
+
+        const removeFamilyModal = document.getElementById('removeFamilyModal');
+        removeFamilyModal.classList.remove('show');
+
+        setTimeout(() => {
+            removeFamilyModal.querySelector('#idid').value = '';
+        }, 300);
+    }
+
+    function openManageUsersModal(id) {
+        const manageUsersModal = document.getElementById('manageUsersModal');
+        manageUsersModal.classList.add('show');
+        manageUsersModal.querySelector('#idid').value = id;
+    }
+
+    function closeManageUsersModal() {
+
+        const manageUsersModal = document.getElementById('manageUsersModal');
+        manageUsersModal.classList.remove('show');
+
+        setTimeout(() => {
+            manageUsersModal.querySelector('#idid').value = '';
+            manageUsersModal.querySelector('#email').value = '';
+        }, 300);
+    }
+</script>

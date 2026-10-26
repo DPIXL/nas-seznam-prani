@@ -3,7 +3,7 @@
 }
 
 <div class="login">
-    <form asp-controller="Admin" asp-action="Register" method="post">
+    <form asp-controller="Admin" asp-action="Register" method="post" enctype="multipart/form-data">
         <div class="form_name">
             <label>Uživatelské Jméno</label>
             <input type="text" name="username" required />
@@ -22,10 +22,12 @@
         </div>
         <div class="form_name">
             <label>Heslo Znovu</label>
-            <input type="password" name="password" required />
+            <input type="password" name="confirmPassword" required />
         </div>
         
-        <input type="file" id="file-upload" name="uploadedImage" accept="image/*" class="hidden-file-input"/>
+        <div class="form_name">
+            <input type="file" id="file-upload" name="banner" accept="image/*" class="hidden-file-input"/>
+        </div>
 
         <div class="file-upload-wrapper">
             <label for="file-upload" class="button">Banner</label>
@@ -41,6 +43,34 @@
         <p>Již máte účet? <a asp-controller="Admin" asp-action="Login">Přihlašte se!</a></p>
 
     </form>
-    
-    
 </div>
+
+<script>
+    const fileInput = document.getElementById('file-upload');
+    const fileChosen = document.getElementById('file-chosen');
+
+    fileInput.addEventListener('change', function () {
+        if (this.files && this.files.length > 0) {
+            fileChosen.textContent = this.files[0].name;
+            fileChosen.style.color = 'inherit';
+        } else {
+            fileChosen.textContent = 'Žádný soubor nevybrán';
+            fileChosen.style.color = '#888';
+        }
+    });
+
+    function updateFileName(inputElement, textSpanId, submitBtnId) {
+        const textSpan = document.getElementById(textSpanId);
+        const submitBtn = document.getElementById(submitBtnId);
+
+        if (inputElement.files && inputElement.files.length > 0) {
+            textSpan.textContent = inputElement.files[0].name;
+
+            submitBtn.disabled = false;
+        } else {
+            textSpan.textContent = "Není vybrán žádný soubor";
+
+            submitBtn.disabled = true;
+        }
+    }
+</script>
