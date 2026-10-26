@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "Náš Seznam Přání";
+    @model List<User>;
+}
+
+<div class="card_container">
+    @for (int i = 1; i <= @Model.Count; i++) {
+        <a asp-controller="GiftList" asp-action="Index" asp-route-id=@i class="category_card" 
+           style="background-image: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.8) 100%), url('@Model[i-1].CardImagePath')">
+            <h1>@Model[i-1].Name</h1>
+        </a>
+    }
+</div>

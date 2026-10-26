@@ -1,0 +1,8 @@
+@model List<Family>
+<div class="card_container">
+    @for (int i = 1; i <= @Model.Count; i++) {
+        <a asp-controller="Family" asp-action="Index" asp-route-id=@i class="category_card" style="background-color: #151515">
+            <h1>@Model[i-1].FamilyName</h1>
+        </a>
+    }
+</div>

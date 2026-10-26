@@ -1,0 +1,46 @@
+@{
+    ViewData["Title"] = "Registrace";
+}
+
+<div class="login">
+    <form asp-controller="Admin" asp-action="Register" method="post">
+        <div class="form_name">
+            <label>Uživatelské Jméno</label>
+            <input type="text" name="username" required />
+        </div>
+        <div class="form_name">
+            <label>Vaše Jméno (zobrazuje se ostatním)</label>
+            <input type="text" name="name" required />
+        </div>
+        <div class="form_name">
+            <label>Email</label>
+            <input type="email" name="email" required />
+        </div>
+        <div class="form_name">
+            <label>Heslo</label>
+            <input type="password" name="password" required />
+        </div>
+        <div class="form_name">
+            <label>Heslo Znovu</label>
+            <input type="password" name="password" required />
+        </div>
+        
+        <input type="file" id="file-upload" name="uploadedImage" accept="image/*" class="hidden-file-input"/>
+
+        <div class="file-upload-wrapper">
+            <label for="file-upload" class="button">Banner</label>
+            <span id="file-chosen">Žádný soubor nevybrán</span>
+        </div>
+        
+        <p class="error">@ViewBag.Error</p>
+        
+        <div class="buttons">
+            <a class="button" type="cancel" asp-controller="Home" asp-action="Index">Zpět</a>
+            <button type="submit">Registrovat se</button>
+        </div>
+        <p>Již máte účet? <a asp-controller="Admin" asp-action="Login">Přihlašte se!</a></p>
+
+    </form>
+    
+    
+</div>

@@ -13,6 +13,9 @@ public class User {
     
     [MaxLength(255)]
     public string Password { get; set; } = string.Empty;
+    
+    [MaxLength(255)]
+    public string CardImagePath { get; set; } = string.Empty;
 
     [Required]
     [MaxLength(255)]

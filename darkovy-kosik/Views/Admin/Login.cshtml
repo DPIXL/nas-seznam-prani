@@ -1,5 +1,5 @@
 @{
-    ViewData["Title"] = "Administrace";
+    ViewData["Title"] = "Přihlášení";
 }
 
 <div class="login">
@@ -19,6 +19,7 @@
             <a class="button" type="cancel" asp-controller="Home" asp-action="Index">Zpět</a>
             <button type="submit">Přihlásit se</button>
         </div>
+        <p>Nemáte účet? <a asp-controller="Admin" asp-action="Register">Zaregistrujte se!</a></p>
     </form>
     
     

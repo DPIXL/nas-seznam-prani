@@ -160,7 +160,7 @@ main {
   .card_container {
     flex-grow: 1;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     gap: 20px;
     min-height: 100%;
     
@@ -176,7 +176,7 @@ main {
       container-type: inline-size;
       h1 {
         color: white;
-        font-size: 20cqw;
+        font-size: 15cqw;
         font-weight: bolder;
         text-align: center;
       }
@@ -401,6 +401,14 @@ p.error, span.error {
     .buttons {
       display: flex;
       justify-content: space-between;
+    }
+    
+    p {
+      margin-bottom: 0;
+      margin-top: 10px;
+      a {
+        color: hotpink;
+      }
     }
   }
 }

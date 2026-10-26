@@ -66,6 +66,18 @@ public class AdminController : Controller {
         return View();
     }
     
+    [HttpGet]
+    public IActionResult Register() {
+        if (User.Identity != null && User.Identity.IsAuthenticated) {
+            var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (int.TryParse(userIdString, out int userId)) {
+                return RedirectToAction("Panel", new { id = userId });
+            }
+        }
+        
+        return View();
+    }
+    
     
     [HttpGet]
     [Authorize]

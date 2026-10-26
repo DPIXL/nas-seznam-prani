@@ -1,9 +1,8 @@
 @model List<Item>
 @{
-    string[] names = new[] { "Štěpán", "Andy", "Maminka", "Anežka", "Babi" };
 
     if (Model.Count > 0) {
-        ViewData["Title"] = "Seznam přání " + names[Model[0].UserId-1];   
+        ViewData["Title"] = "Seznam přání " + ViewBag.Username;
     }
     else {
         ViewData["Title"] = "Seznam Prázdný :(";
