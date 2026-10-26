@@ -17,6 +17,10 @@ public class GiftListController : Controller {
     public IActionResult Index(int? id) {
 
         var items = _context.Items.Where(x => x.UserId == id).ToList();
+
+        var user = _context.Users.FirstOrDefault(x => x.Id == id);
+        
+        ViewBag.Username = user?.Username;
         
         return View(items);
     }

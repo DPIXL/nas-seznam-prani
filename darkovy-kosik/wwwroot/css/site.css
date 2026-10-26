@@ -151,6 +151,10 @@ a.download_button {
   display: none !important;
 }
 
+.back_to_family_selection {
+  margin-top: 20px;
+}
+
 main {
   padding: 20px 60px;
   flex-grow: 1;
@@ -160,15 +164,37 @@ main {
   .card_container {
     flex-grow: 1;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     gap: 20px;
     min-height: 100%;
+    
+    .family_card_container {
+      display: flex;
+      flex-direction: column;
+      border: solid 2px #3f3f3f;
+      border-radius: 1rem;
+      padding: 10px;
+      background-color: #111111;
+      
+      .family_actions {
+        margin-top: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+        display: flex;
+        
+        gap: 20px;
+        
+        button {
+          flex-grow: 1;
+        }
+      }
+    }
     
     .category_card {
       border: solid 2px white;
       border-radius: 2rem;
       text-decoration: none;
-      
+      flex-grow: 1;
       display: flex;
       align-items: end;
       justify-content: center;
@@ -176,7 +202,7 @@ main {
       container-type: inline-size;
       h1 {
         color: white;
-        font-size: 20cqw;
+        font-size: 15cqw;
         font-weight: bolder;
         text-align: center;
       }
@@ -401,6 +427,15 @@ p.error, span.error {
     .buttons {
       display: flex;
       justify-content: space-between;
+      margin-top: 30px;
+    }
+    
+    p {
+      margin-bottom: 0;
+      margin-top: 10px;
+      a {
+        color: hotpink;
+      }
     }
   }
 }
@@ -486,10 +521,12 @@ a.button[type="link"], button.link {
   background-image: linear-gradient(rgba(0, 149, 255, 0.3), rgba(0, 149, 255, 0.3));
 }
 
+a.button[type="special"], button.special {
+  background-image: linear-gradient(rgb(255 0 126 / 0.3), rgb(255 0 126 / 0.3));
+}
+
 .user_actions {
   display: flex;
-  position: absolute;
-  z-index: 999;
   gap: 20px;
 }
 
@@ -716,6 +753,43 @@ footer {
   border-radius: 2rem;
 }
 
+.welcome {
+  display: flex;
+  flex-direction: column;
+  
+  align-items: center;
+  justify-content: center;
+  margin-top: 20vh;
+  
+  gap: 30px;
+  
+  a {
+    margin-top: 20px;
+    width: fit-content;
+  }
+  
+  p {
+    text-align: center;
+  }
+  
+  p.main_p {
+    font-size: 20px;
+  }
+  
+  div {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(30px);
+    border-radius: 2rem;
+    border: solid 1px #616161;
+  }
+}
+
 @media (max-aspect-ratio: 1/1) {
   
   .hideondesktop {
@@ -814,7 +888,6 @@ footer {
       grid-template-columns: 1fr;
       .category_card {
         h1 {
-          font-size: 4rem;
           margin: 0;
         }
       }
@@ -926,6 +999,7 @@ footer {
     position: static;
     gap: 20px;
     justify-content: space-between;
+    margin-bottom: 20px;
   }
   
   .login {
@@ -938,5 +1012,9 @@ footer {
     flex-direction: column;
     align-items: center;
     gap: 10px;
+  }
+  
+  .welcome {
+    margin-top: 0;
   }
 }

@@ -66,6 +66,88 @@ public class AdminController : Controller {
         return View();
     }
     
+    [HttpGet]
+    public IActionResult Register() {
+        if (User.Identity != null && User.Identity.IsAuthenticated) {
+            var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (int.TryParse(userIdString, out int userId)) {
+                return RedirectToAction("Panel", new { id = userId });
+            }
+        }
+        
+        return View();
+    }
+    
+    [HttpPost]
+    public async Task<IActionResult> Register(string username, string password, string confirmPassword, string name, string email, IFormFile? banner) {
+
+        ViewBag.Error = "";
+        
+        bool userExists = await _context.Users.AnyAsync(u => u.Username == username);
+
+        if (userExists) {
+            ViewBag.Error += "Toto uživatelské jméno již existuje.\n";
+            return View();
+        }
+
+        if (password != confirmPassword) {
+            ViewBag.Error += "Hesla se neshodují.\n";
+            return View();
+        }
+
+        string bannerPath = "";
+        
+        if (banner != null && banner.Length > 0) {
+            try {
+                string uploadsFolder = Environment.GetEnvironmentVariable("WEBSITE_SITE_NAME") != null
+                    ? "/home/site/uploads/users"
+                    : Path.Combine(_env.WebRootPath, "img", "uploads", "users");
+
+                Directory.CreateDirectory(uploadsFolder);
+
+                string uniqueFileName = Guid.NewGuid().ToString() + ".webp";
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using (var stream = banner.OpenReadStream())
+                using (var image = await Image.LoadAsync(stream)) {
+                    image.Mutate(x => x.Resize(new ResizeOptions {
+                        Size = new Size(600, 0),
+                        Mode = ResizeMode.Max
+                    }));
+
+                    await image.SaveAsWebpAsync(filePath);
+                }
+
+                bannerPath = "/img/uploads/users/" + uniqueFileName;
+            }
+            catch (UnknownImageFormatException) {
+                Console.WriteLine("UPLOAD ERROR: Unsupported image format.");
+
+                bannerPath = "/img/default-user.png";
+            }
+            catch (Exception ex) {
+                Console.WriteLine("UPLOAD ERROR: " + ex.Message);
+
+                bannerPath = "/img/default-user.png";
+            }
+        } else {
+            bannerPath = "/img/default-user.png";
+        }
+        
+        User user = new User() { 
+            Username = username, 
+            Password = BCrypt.Net.BCrypt.HashPassword(password), 
+            Email = email, 
+            Name = name, 
+            CardImagePath = bannerPath 
+        };
+
+        _context.Users.Add(user);
+        await _context.SaveChangesAsync();
+            
+        return RedirectToAction("Login");
+    }
+    
     
     [HttpGet]
     [Authorize]

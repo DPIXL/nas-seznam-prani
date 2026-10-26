@@ -8,6 +8,11 @@
     if (currentController == "GiftList") {
         currentUserHeaderStyle = "header_style_" +  currentGiftlistId;
     }
+
+    string adminBtnText = "Admin";
+    if (!User.Identity.IsAuthenticated) {
+        adminBtnText = "Log in";
+    }
 }
 
 <!DOCTYPE html>
@@ -15,7 +20,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>@ViewData["Title"] - Náš Seznam Přání</title>
+    <title>@ViewData["Title"]</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/>
@@ -39,7 +44,7 @@
         <h1 class="logotext">Náš Seznam Přání</h1>
     </a>
     <a asp-controller="Admin" asp-action="Panel" class="button @isActiveAdmin">
-        <img src="/img/user.png" class="admin_icon"><p class="hideonmobile">Admin</p></a>
+        <img src="/img/user.png" class="admin_icon"><p class="hideonmobile">@adminBtnText</p></a>
 </header>
 @if (!Context.Request.Headers["User-Agent"].ToString().Contains("WishlistApp")) {
     <a class="button download_button" href="@Configuration["AppLinks:ApkDownloadUrl"]">
@@ -51,7 +56,7 @@
     </main>
 <footer>
     <div>
-        &copy; 2026 - Náš Seznam Přání v2 od <a href="https://github.com/DPIXL">DPIXL</a>
+        &copy; 2026 - Náš Seznam Přání v3 od <a href="https://github.com/DPIXL">DPIXL</a>
     </div>
 </footer>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
