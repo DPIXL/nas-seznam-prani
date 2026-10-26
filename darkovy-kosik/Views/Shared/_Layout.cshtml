@@ -1,7 +1,13 @@
 ﻿@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
 @{
     var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var currentGiftlistId = ViewContext.RouteData.Values["id"]?.ToString();
     var isActiveAdmin = currentController == "Admin" ? "active-admin-btn" : "";
+
+    var currentUserHeaderStyle = "";
+    if (currentController == "GiftList") {
+        currentUserHeaderStyle = "header_style_" +  currentGiftlistId;
+    }
 }
 
 <!DOCTYPE html>
@@ -20,10 +26,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
 </head>
 <body>
-<header>
+<header class="@currentUserHeaderStyle">
     <span class="hideonmobile"></span>
     <a asp-controller="Home" asp-action="Index" class="logosection">
-        <img src="/img/logo.svg" class="headerlogo">
+        <svg class="headerlogo" width="32" height="32" viewBox="0 0 32 32" id="svg1" xmlns="http://www.w3.org/2000/svg">
+            <g id="layer1">
+                <rect style="fill:currentColor;fill-opacity:1;stroke:currentColor;stroke-width:1.59511;stroke-linecap:round;stroke-linejoin:round" id="rect7" width="19.998529" height="13.320365" x="6.0007353" y="11.23436" ry="2.0637181" />
+                <path style="fill:none;stroke:currentColor;stroke-width:1.30963;stroke-linecap:round;stroke-linejoin:round" d="M 16,11.234359 C 15.307098,11.108517 14.690427,10.594535 14.082385,10.229301 8.8261204,7.0720127 10.736931,2.0202813 14.209696,6.0520296 16.624586,8.8556252 14.772308,9.2389382 16,11.234359" id="path7" />
+                <path style="fill:none;stroke:currentColor;stroke-width:1.30963;stroke-linecap:round;stroke-linejoin:round" d="M 16,11.234359 C 15.176345,7.7025282 20.340789,3.4108614 23.726156,5.266828 24.696877,5.7990082 25.174952,7.4000615 24.299053,8.1563702 22.462422,9.7422372 16.338902,9.6533972 16,11.234359" id="path8" />
+            </g>
+        </svg>
         <h1 class="logotext">Náš Seznam Přání</h1>
     </a>
     <a asp-controller="Admin" asp-action="Panel" class="button @isActiveAdmin">
@@ -39,7 +51,7 @@
     </main>
 <footer>
     <div>
-        &copy; 2026 - Náš Seznam Přání v2 od <a href="https://www.instagram.com/stpat__/">stpat_dp</a>
+        &copy; 2026 - Náš Seznam Přání v2 od <a href="https://github.com/DPIXL">DPIXL</a>
     </div>
 </footer>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
