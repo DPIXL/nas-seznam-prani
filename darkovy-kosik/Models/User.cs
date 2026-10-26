@@ -18,5 +18,12 @@ public class User {
     [MaxLength(255)]
     public string Name { get; set; } = string.Empty;
     
+    [Required]
+    [MaxLength(255)]
+    public string Email { get; set; } = string.Empty;
+    
     public ICollection<Item> Items { get; set; } = new List<Item>();
+
+    // Navigation property for N:N
+    public ICollection<Family> Families { get; set; } = new List<Family>();
 }
