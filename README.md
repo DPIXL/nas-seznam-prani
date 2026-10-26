@@ -13,3 +13,13 @@ Mezi funkce webu patří například:
 - Rezervace dárku, aby ostatní uživatelé věděli že dárek už někdo kupuje.
 
 - Mimo jiné adaptivní zobrazení pro mobilní telefony nebo používání stránky přes dedikovanou mobilní aplikaci
+
+## Náš Seznam Přání V1
+- První prototyp aplikace, s hard-coded uživatelema a hodnotama, se základními funkcemi a bez velkého počtu QOL možností, jako přidání vlastního obrázku.
+
+## Náš Seznam Přání V2
+- Clean-up aplikace, aby fungovala více dynamicky, a příprava na expanzi pro veřejné použití.
+
+## Náš Seznam Přání V3
+- Mometálně probíhá práce na třetí verzi Našeho Seznamu Přáni, která bude podporovat vícero rodin, a přestane tím pádem být exkluzivně pro mé osobní použití.
+- Mezi nové funkce bude patřit například tvorba vlastní "rodiny", registrace uživatele (momentálně je aplikace soukromá, takže tvorba uživatelů probíhá přímo skrze mě přes databázi), a možnost patřit do vícero rodin najednou. Přidá se registrační pohled, pohled pro tvorbu rodiny a pozvánky pro členy, a také pohled pro výběr rodiny, pokud patříte do více než jedné.
