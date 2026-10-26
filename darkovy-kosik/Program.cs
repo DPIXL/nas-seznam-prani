@@ -18,6 +18,8 @@ builder.Services.AddAuthentication("WishlistCookieAuth")
     {
         options.Cookie.Name = "WishlistAuthV2";
         options.LoginPath = "/Admin/Login"; 
+        options.ExpireTimeSpan = TimeSpan.FromDays(365);
+        options.SlidingExpiration = true;
     });
 
 var app = builder.Build();

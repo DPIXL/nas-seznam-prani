@@ -36,10 +36,10 @@ public class AdminController : Controller {
 
     [HttpPost]
     public async Task<IActionResult> Login(string username, string password) {
-        
+    
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
         if (user != null) {
-            
+        
             bool isValid = BCrypt.Net.BCrypt.Verify(password, user.Password);
 
             if (isValid) {
@@ -51,12 +51,17 @@ public class AdminController : Controller {
                 var identity = new ClaimsIdentity(claims, "WishlistCookieAuth");
                 var principal = new ClaimsPrincipal(identity);
 
-                await HttpContext.SignInAsync("WishlistCookieAuth", principal);
-                
+                var authProperties = new AuthenticationProperties {
+                    IsPersistent = true,
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddDays(365)
+                };
+
+                await HttpContext.SignInAsync("WishlistCookieAuth", principal, authProperties);
+            
                 return RedirectToAction("Panel", new { id = user.Id });
             }
         }
-        
+    
         ViewBag.Error = "Špatné jméno nebo heslo.";
         return View();
     }
