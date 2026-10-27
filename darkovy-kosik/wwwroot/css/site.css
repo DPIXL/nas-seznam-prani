@@ -413,7 +413,8 @@ p.error, span.error {
   margin-bottom: 20vh;
   
   form {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.1);
+    border: solid 1px #616161;
     backdrop-filter: blur(10px);
     padding: 50px;
     border-radius: 1.5rem;
