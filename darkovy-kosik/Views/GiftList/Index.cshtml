@@ -7,6 +7,8 @@
     else {
         ViewData["Title"] = "Seznam Prázdný :(";
     }
+    
+    int.TryParse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value, out int currentUserId);
 }
 
 <div class="gifts">
@@ -34,11 +36,13 @@
                     <h1>@Model[i].Name</h1>
                     <p class="cena">@Model[i].Price Kč</p>
                 </span>
-                @if (!Model[i].IsReserved) {
-                    <button onclick="event.stopPropagation(); openModal(@Model[i].Id, @Model[i].UserId, '@Model[i].Link')" class="submit">Rezervovat</button>
-                }
-                else {
-                    <p class="error">Tento dárek je již rezervován.</p>
+                @if ((currentUserId != ViewBag.UserID) || currentUserId == 1) {
+                    @if (!Model[i].IsReserved) {
+                        <button onclick="event.stopPropagation(); openModal(@Model[i].Id, @Model[i].UserId, '@Model[i].Link')" class="submit">Rezervovat</button>
+                    }
+                    else {
+                        <p class="error">Tento dárek je již rezervován.</p>
+                    }
                 }
             </div>
         }

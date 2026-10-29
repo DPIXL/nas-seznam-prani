@@ -21,6 +21,7 @@ public class GiftListController : Controller {
         var user = _context.Users.FirstOrDefault(x => x.Id == id);
         
         ViewBag.Username = user?.Username;
+        ViewBag.UserID = user?.Id;
         
         return View(items);
     }
