@@ -15,6 +15,7 @@
     }
     
     var userAgent = Context.Request.Headers["User-Agent"].ToString().ToLower();
+    var hidePromoCookie = Context.Request.Cookies["hideAppPromo"];
 }
 
 <!DOCTYPE html>
@@ -48,10 +49,16 @@
     <a asp-controller="Admin" asp-action="Panel" class="button @isActiveAdmin">
         <img src="/img/user.png" class="admin_icon"><p class="hideonmobile">@adminBtnText</p></a>
 </header>
-@if (!userAgent.Contains("wishlistapp") && !userAgent.Contains("iphone") && !userAgent.Contains("ipad")) {
-    <a class="button download_button" href="@Configuration["AppLinks:ApkDownloadUrl"]">
-        <img src="/img/download.png" class="admin_icon"><p>Stáhnout Aplikaci</p>
-    </a>
+@if (!userAgent.Contains("wishlistapp") && !userAgent.Contains("iphone") && !userAgent.Contains("ipad") && hidePromoCookie != "true") {
+    <div class="apk_header">
+        <button class="delete" onclick="dismissAppPromo()">
+            ✖
+        </button>
+        <a class="button download_button" type="submit" href="@Configuration["AppLinks:ApkDownloadUrl"]">
+            <img src="/img/download.png" class="admin_icon">
+            <p>Stáhnout Aplikaci</p>
+        </a>
+    </div>
 }
     <main>
         @RenderBody()

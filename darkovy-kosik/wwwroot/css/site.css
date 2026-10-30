@@ -147,6 +147,10 @@ header.header_style_5 {
   }
 }
 
+div.apk_header {
+  display: none !important;
+}
+
 a.download_button {
   display: none !important;
 }
@@ -511,18 +515,18 @@ a.button:hover, button:hover, .button:hover {
   cursor: pointer;
 }
 
-button[type="submit"], button.submit {
+button[type="submit"], button.submit, a.button[type="submit"] {
   background-image: linear-gradient(rgba(38, 255, 0, 0.3), rgba(38, 255, 0, 0.3));
 }
-a.button[type="cancel"], button.delete {
+a.button[type="cancel"], button.delete, button[type="cancel"] {
   background-image: linear-gradient(rgba(255, 0, 0, 0.3), rgba(255, 0, 0, 0.3));
 }
 
-a.button[type="link"], button.link {
+a.button[type="link"], button.link, button[type="link"] {
   background-image: linear-gradient(rgba(0, 149, 255, 0.3), rgba(0, 149, 255, 0.3));
 }
 
-a.button[type="special"], button.special {
+a.button[type="special"], button.special, button[type="special"] {
   background-image: linear-gradient(rgb(255 0 126 / 0.3), rgb(255 0 126 / 0.3));
 }
 
@@ -863,20 +867,23 @@ footer {
   main {
     margin-top: 10px;
   }
-
-  a.download_button {
+  
+  div.apk_header {
     display: flex !important;
     position: sticky;
     z-index: 9999;
     flex-direction: row;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    gap: 5px;
+  }
 
+  .apk_header a, .apk_header button {
+    display: flex !important;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin-bottom: 10px;
-    margin-right: 10px;
-    margin-left: 10px;
-
-    background-image: linear-gradient(rgba(38, 255, 0, 0.3), rgba(38, 255, 0, 0.3));
     
     p {
       padding: 0;
@@ -888,6 +895,17 @@ footer {
       height: auto;
       margin-right: 5px;
     }
+  }
+  
+  .apk_header button {
+    border-top-right-radius: 0.2rem;
+    border-bottom-right-radius: 0.2rem;
+  }
+  
+  a.download_button {
+    flex-grow: 1;
+    border-top-left-radius: 0.2rem;
+    border-bottom-left-radius: 0.2rem;
   }
   
   footer {
