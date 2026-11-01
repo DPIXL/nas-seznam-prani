@@ -151,7 +151,7 @@ div.apk_header {
   display: none !important;
 }
 
-a.download_button {
+.download_button {
   display: none !important;
 }
 
@@ -897,12 +897,12 @@ footer {
     }
   }
   
-  .apk_header button {
+  .apk_header .dismiss_app_butt {
     border-top-right-radius: 0.2rem;
     border-bottom-right-radius: 0.2rem;
   }
   
-  a.download_button {
+  .download_button {
     flex-grow: 1;
     border-top-left-radius: 0.2rem;
     border-bottom-left-radius: 0.2rem;
@@ -1047,5 +1047,11 @@ footer {
   
   .welcome {
     margin-top: 0;
+  }
+}
+
+@media (display-mode: standalone) {
+  .apk_header {
+    display: none !important;
   }
 }

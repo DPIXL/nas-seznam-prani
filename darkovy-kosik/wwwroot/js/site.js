@@ -24,3 +24,28 @@ function dismissAppPromo() {
     date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000));
     document.cookie = "hideAppPromo=true; expires=" + date.toUTCString() + "; path=/; SameSite=Strict";
 }
+
+// js pro instalaci PWA
+let deferredPrompt;
+const installBtn = document.querySelector('.download_button');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+});
+
+if (installBtn) {
+    installBtn.addEventListener('click', async (e) => {
+        e.preventDefault();
+
+        if (deferredPrompt) {
+            // Android/Desktop
+            deferredPrompt.prompt();
+            await deferredPrompt.userChoice;
+            deferredPrompt = null;
+        } else {
+            // iOS
+            alert("Pro instalaci na iOS klepněte na tlačítko Sdílet (Share) v prohlížeči a vyberte 'Přidat na plochu' (Add to Home Screen).");
+        }
+    });
+}

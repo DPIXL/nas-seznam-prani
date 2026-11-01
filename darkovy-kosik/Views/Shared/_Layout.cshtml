@@ -32,6 +32,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex&family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+    
+    <link rel="manifest" href="~/manifest.json">
+    <meta name="theme-color" content="#000000">
+    <script>
+      if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js');
+    }
+    </script>
 </head>
 <body>
 <header class="@currentUserHeaderStyle">
@@ -49,15 +57,15 @@
     <a asp-controller="Admin" asp-action="Panel" class="button @isActiveAdmin">
         <img src="/img/user.png" class="admin_icon"><p class="hideonmobile">@adminBtnText</p></a>
 </header>
-@if (!userAgent.Contains("wishlistapp") && !userAgent.Contains("iphone") && !userAgent.Contains("ipad") && hidePromoCookie != "true") {
+@if (!userAgent.Contains("wishlistapp") && hidePromoCookie != "true") {
     <div class="apk_header">
-        <button class="delete" onclick="dismissAppPromo()">
+        <button class="delete dismiss_app_butt" onclick="dismissAppPromo()">
             ✖
         </button>
-        <a class="button download_button" type="submit" href="@Configuration["AppLinks:ApkDownloadUrl"]">
+        <button class="button download_button" type="submit">
             <img src="/img/download.png" class="admin_icon">
             <p>Stáhnout Aplikaci</p>
-        </a>
+        </button>
     </div>
 }
     <main>
