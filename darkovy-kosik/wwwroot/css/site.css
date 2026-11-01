@@ -1051,7 +1051,7 @@ footer {
 }
 
 @media (display-mode: standalone) {
-  .apk_header {
+  div.apk_header {
     display: none !important;
   }
 }
