@@ -52,7 +52,7 @@
 <div id="reserveModal" class="modal-overlay">
     <div class="modal-card">
         <h2>Rezervovat dárek</h2>
-        <p>Zadejte své jméno, aby ostatní věděli, že tento dárek už kupujete.</p>
+        <p>Zadejte svůj email aby ostatní věděli, že tento dárek už někdo kupuje.</p>
         <p class="error">ODKAZ NA DÁREK SI ULOŽTE</p>
         <a class="button" type="link" id="modalLink" href="">Odkaz na dárek</a>
         
@@ -62,8 +62,8 @@
             <input type="hidden" id="modalUserId" name="userId" />
             
             <div class="group">
-                <label for="reserverName">Vaše jméno:</label>
-                <input type="text" id="reserverName" name="reserverName" required />
+                <label for="reserverName">Váš email:</label>
+                <input type="email" id="reserverName" name="reserverName" value="@ViewBag.CurrentEmail" required />
             </div>
             
             <div class="modal-actions">
@@ -88,7 +88,7 @@
         document.getElementById('reserveModal').classList.remove('show');
         
         setTimeout(() => {
-            document.getElementById('reserverName').value = '';
+            document.getElementById('reserverName').value = '@ViewBag.CurrentEmail';
         }, 300);
     }
 </script>

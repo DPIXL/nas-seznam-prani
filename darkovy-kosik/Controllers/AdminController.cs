@@ -36,7 +36,9 @@ public class AdminController : Controller {
 
     [HttpPost]
     public async Task<IActionResult> Login(string username, string password) {
-    
+
+        username = username.Trim();
+        
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
         if (user != null) {
         
@@ -82,11 +84,20 @@ public class AdminController : Controller {
     public async Task<IActionResult> Register(string username, string password, string confirmPassword, string name, string email, IFormFile? banner) {
 
         ViewBag.Error = "";
+
+        username = username.Trim();
+        email = email.Trim();
         
         bool userExists = await _context.Users.AnyAsync(u => u.Username == username);
+        bool emailExists = await _context.Users.AnyAsync(u => u.Email == email);
 
         if (userExists) {
             ViewBag.Error += "Toto uživatelské jméno již existuje.\n";
+            return View();
+        }
+        
+        if (emailExists) {
+            ViewBag.Error += "Tento email již někdo používá.\n";
             return View();
         }
 
@@ -151,7 +162,7 @@ public class AdminController : Controller {
     
     [HttpGet]
     [Authorize]
-    public IActionResult Panel(int id) {
+    public async Task<IActionResult> Panel(int id) {
         
         var loggedInIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         if (int.TryParse(loggedInIdString, out int loggedInUserId)) {
@@ -160,11 +171,14 @@ public class AdminController : Controller {
                 return RedirectToAction("Panel", new { id = loggedInUserId });
             }
         }
-
+        
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+        
         PanelDTO dto = new PanelDTO();
         dto.Items = _context.Items.Where(i => i.UserId == id).ToList();
         dto.Item = new Item();
         dto.Item.UserId = id;
+        dto.ReservedItems = _context.Items.Where(i => i.ReservedBy == user.Email).ToList();
         
         return View(dto);
     }

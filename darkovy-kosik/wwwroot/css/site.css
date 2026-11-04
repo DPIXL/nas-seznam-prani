@@ -18,6 +18,10 @@ body {
   font-family: 'Google Sans', sans-serif;
 }
 
+body:has(.modal-overlay.show) {
+  overflow: hidden;
+}
+
 header {
   
   position: sticky;
@@ -601,102 +605,142 @@ a.button[type="special"], button.special, button[type="special"] {
       display: grid;
       grid-template-columns: minmax(0, 1fr);
       gap: 30px;
-      
-      .item_card {
-        padding: 20px;
-        border: solid 1px #616161;
-        border-radius: 2rem;
+    }
+  }
+
+  .item_card {
+    padding: 20px;
+    border: solid 1px #616161;
+    border-radius: 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 20vh;
+    background-color: rgb(255 255 255 / 0.1);
+    backdrop-filter: blur(10px);
+
+    transition: transform 0.3s ease;
+
+    gap: 20px;
+
+    img {
+      border: solid 1px white;
+      width: 15vh;
+      height: 15vh;
+      object-fit: cover;
+      border-radius: 1rem;
+    }
+
+    .popis {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      flex: 1;
+      min-width: 0;
+
+      h1 {
+        color: black;
+        background-color: white;
+        font-weight: bold;
+        border-radius: 1rem;
+        padding: 5px 10px;
+
+        max-width: 100%;
+        text-align: center;
+      }
+
+      p {
+        font-size: 28px;
+        text-align: center;
+        max-width: 100%;
+      }
+    }
+
+    .image_part {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .file-upload-wrapper-specific {
         display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        min-height: 20vh;
-        background-color: rgb(255 255 255 / 0.1);
-        backdrop-filter: blur(10px);
+        flex-direction: column;
+        gap: 10px;
+      }
 
-        transition: transform 0.3s ease;
-        
-        gap: 20px;
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
 
-        img {
-          border: solid 1px white;
-          width: 15vh;
-          height: 15vh;
-          object-fit: cover;
-          border-radius: 1rem;
+        button[type="submit"][disabled] {
+          background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+          color: #b8b8b8;
+        }
+        button[type="submit"][disabled]:hover {
+          cursor: default;
+          background-color: rgba(255, 255, 255, 0.2);
+          border-radius: 0.7rem;
         }
 
-        .popis {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-
-          flex: 1;
-          min-width: 0;
-
-          h1 {
-            color: black;
-            background-color: white;
-            font-weight: bold;
-            border-radius: 1rem;
-            padding: 5px 10px;
-
-            max-width: 100%;
-            text-align: center;
-          }
-
-          p {
-            font-size: 28px;
-            text-align: center;
-            max-width: 100%;
-          }
-        }
-
-        .image_part {
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-          
-          .file-upload-wrapper-specific {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-          }
-          
-          form {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            
-            button[type="submit"][disabled] {
-              background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
-              color: #b8b8b8;
-            }
-            button[type="submit"][disabled]:hover {
-              cursor: default;
-              background-color: rgba(255, 255, 255, 0.2);
-              border-radius: 0.7rem;
-            }
-            
-            .file-name {
-              font-size: 16px;
-              width: 15vh;
-              overflow: hidden;
-              text-overflow: ellipsis;
-              white-space: nowrap;
-            }
-          }
-          
+        .file-name {
+          font-size: 16px;
           width: 15vh;
-          
-          align-items: center;
-          text-align: center;
-          
-          button, .button {
-            width: 100%;
-          }
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
       }
+
+      width: 15vh;
+
+      align-items: center;
+      text-align: center;
+
+      button, .button {
+        width: 100%;
+      }
+    }
+  }
+  
+  .modal-overlay .gifts_list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: scroll;
+    max-height: 40vh;
+    
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+  
+  .modal-overlay .item_card {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    align-items: center;
+    justify-content: center;
+    min-height: auto;
+    .image_part {
+      width: auto;
+      height: auto;
+      img {
+        width: 10vh;
+        height: 15vh;
+      }
+    }
+    .popis {
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      justify-content: center;
+      align-items: center;
+    }
+    
+    a, p {
+      margin: 0;
     }
   }
 }

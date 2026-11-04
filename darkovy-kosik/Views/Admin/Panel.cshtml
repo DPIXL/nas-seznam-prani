@@ -4,7 +4,8 @@
     ViewData["Title"] = "Administrace";
 }
 <div class="user_actions">
-    <button onclick="event.stopPropagation(); openModal()" class="changePasswordButton link">Změnit Heslo</button>
+    <button onclick="event.stopPropagation(); openPasswordModal()" class="changePasswordButton link">Změnit Heslo</button>
+    <button onclick="event.stopPropagation(); openReservesModal()" type="button">Moje Rezervace</button>
     <a asp-controller="Admin" asp-action="Logout" class="button logoutButton" type="cancel">Odhlásit se</a>
 </div>
 <div class="admin_panel">
@@ -82,7 +83,6 @@
             }
         </div>
     </div>
-</div>
 
 <div id="changePasswordModal" class="modal-overlay">
     <div class="modal-card">
@@ -97,26 +97,57 @@
             
             
             <div class="modal-actions">
-                <button type="button" class="delete" onclick="closeModal()">Zrušit</button>
+                <button type="button" class="delete" onclick="closePasswordModal()">Zrušit</button>
                 <button type="submit">Aktualizovat</button>
             </div>
         </form>
     </div>
 </div>
 
+<div id="reservesModal" class="modal-overlay">
+    <div class="modal-card">
+        <h2>Mnou rezervované dárky</h2>
+        <div class="gifts_list">
+        @for (int i = Model.ReservedItems.Count-1; i >= 0; i--) {
+            <div class="item_card">
+                <span class="image_part">
+                    <img src="@Model.ReservedItems[i].ImageUrl" class="item_photo"/>
+                </span>
+                <span class="popis">
+                    <h1>@Model.ReservedItems[i].Name</h1>
+                    <p class="cena">@Model.ReservedItems[i].Price Kč</p>
+                    <a class="button" type="link" href="@Model.ReservedItems[i].Link">Odkaz</a>
+                </span>
+            </div>
+        }
+        </div>
+        <button type="button" class="delete" onclick="closeReservesModal()">Zrušit</button>
+    </div>
+</div>
+</div>
+
 <script>
-    function openModal() {
+    function openPasswordModal() {
         
         document.getElementById('changePasswordModal').classList.add('show');
     }
 
-    function closeModal() {
+    function closePasswordModal() {
         document.getElementById('changePasswordModal').classList.remove('show');
+    }
+
+    function openReservesModal() {
+
+        document.getElementById('reservesModal').classList.add('show');
+    }
+
+    function closeReservesModal() {
+        document.getElementById('reservesModal').classList.remove('show');
     }
     
     const fileInput = document.getElementById('file-upload');
     const fileChosen = document.getElementById('file-chosen');
-
+    
     fileInput.addEventListener('change', function () {
         if (this.files && this.files.length > 0) {
             fileChosen.textContent = this.files[0].name;

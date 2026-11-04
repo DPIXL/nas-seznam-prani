@@ -23,11 +23,22 @@ public class GiftListController : Controller {
         ViewBag.Username = user?.Username;
         ViewBag.UserID = user?.Id;
         
+        
+        
+        int.TryParse(User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value, out int currentUserId);
+        var currentUser = _context.Users.FirstOrDefault(x => x.Id == currentUserId);
+        if (currentUser != null) {
+            ViewBag.CurrentEmail = currentUser.Email;
+        }
+        
         return View(items);
     }
     
     [HttpPost]
     public async Task<IActionResult> ReserveItem(int itemId, string reserverName, int userId) {
+        
+        reserverName = reserverName.Trim();
+        
         var item = await _context.Items.FindAsync(itemId);
     
         if (item != null && !item.IsReserved) {
