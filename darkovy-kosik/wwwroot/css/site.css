@@ -74,7 +74,14 @@ header {
     cursor: pointer;
   }
   
-  a.button {
+  span.header_actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  a.button, button {
     display: flex;
     flex-direction: row;
     align-self: center;
@@ -92,6 +99,11 @@ header {
       margin-right: 5px;
     }
   }
+
+  .share_button {
+    display: none;
+  }
+  
   .active-admin-btn {
     background-color: white !important;
     color: black !important;
@@ -276,12 +288,14 @@ p.error, span.error {
 }
 
 .modal-card {
-  background: rgba(255, 255, 255, 0.2);
   padding: 30px;
   border-radius: 1rem;
   width: 100%;
   max-width: 400px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+
+  border: solid 1px #616161;
+  background-color: rgb(255 255 255 / 0.1);
 
   /* Start the card slightly smaller and lower */
   transform: translateY(20px) scale(0.95);
@@ -898,13 +912,25 @@ footer {
       background: none;
     }
     
-    img.admin_icon {
-      margin-right: 0 !important;
-      width: 24px !important;
+    span.header_actions {
+      display: flex;
+      flex-direction: row;
+    }
+    
+    a.button, button {
+      img {
+        margin-right: 0 !important;
+        width: 24px !important;
+      }
+    }
+    
+    .share_button {
+      display: flex;
+      margin-right: 5px;
     }
     
     h1 {
-      font-size: 2rem;
+      font-size: 1.8rem;
     }
   }
   
@@ -962,6 +988,9 @@ footer {
     .card_container {
       grid-template-columns: 1fr;
       .category_card {
+        
+        min-height: 11vh;
+        
         h1 {
           margin: 0;
         }

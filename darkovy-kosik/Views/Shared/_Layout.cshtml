@@ -54,8 +54,20 @@
         </svg>
         <h1 class="logotext">Náš Seznam Přání</h1>
     </a>
-    <a asp-controller="Admin" asp-action="Panel" class="button @isActiveAdmin">
-        <img src="/img/user.png" class="admin_icon"><p class="hideonmobile">@adminBtnText</p></a>
+    
+    <span class="header_actions">
+        
+        @if (ViewBag.ShowShareButton != true) {
+            <button style="visibility: hidden" onclick="copyCurrentLink()" class="button share_button"><img src="/img/share.png"></button>
+        }
+        else {
+            <button onclick="copyCurrentLink()" class="button share_button"><img src="/img/share.png"></button>
+        }
+        
+        <a asp-controller="Admin" asp-action="Panel" class="button @isActiveAdmin">
+            <img src="/img/user.png" class="admin_icon">
+            <p class="hideonmobile">@adminBtnText</p></a>
+    </span>
 </header>
 @if (!userAgent.Contains("wishlistapp") && hidePromoCookie != "true") {
     <div class="apk_header">

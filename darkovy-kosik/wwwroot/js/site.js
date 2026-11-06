@@ -49,3 +49,8 @@ if (installBtn) {
         }
     });
 }
+
+function copyCurrentLink() {
+    // Writes the current URL to the device clipboard
+    navigator.clipboard.writeText(window.location.href);
+}

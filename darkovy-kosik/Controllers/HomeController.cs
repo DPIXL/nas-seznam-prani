@@ -16,6 +16,8 @@ public class HomeController : Controller {
     
     public async Task<IActionResult> Index() {
 
+        await _context.Database.CanConnectAsync();
+        
         if (!User.Identity.IsAuthenticated) {
             return View("Welcome");
         }

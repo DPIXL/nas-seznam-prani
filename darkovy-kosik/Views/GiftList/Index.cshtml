@@ -1,6 +1,8 @@
 @model List<Item>
 @{
-
+    
+    ViewBag.ShowShareButton = true;
+    
     if (Model.Count > 0) {
         ViewData["Title"] = "Seznam přání " + ViewBag.Username;
     }
@@ -30,7 +32,7 @@
     </div> -->
     <div class="gifts_list">
         @for (int i = @Model.Count - 1; i >= 0; i--) {
-            <div onclick="window.open('@Model[i].Link', '_blank')" class="item_card @(Model[i].IsReserved ? "reserved" : "") ">
+            <div onclick="openExternal('@Model[i].Link', '_blank')" class="item_card @(Model[i].IsReserved ? "reserved" : "") ">
                 <img src="@Model[i].ImageUrl" class="item_photo"/>
                 <span class="popis">
                     <h1>@Model[i].Name</h1>
@@ -54,7 +56,7 @@
         <h2>Rezervovat dárek</h2>
         <p>Zadejte svůj email aby ostatní věděli, že tento dárek už někdo kupuje.</p>
         <p class="error">ODKAZ NA DÁREK SI ULOŽTE</p>
-        <a class="button" type="link" id="modalLink" href="">Odkaz na dárek</a>
+        <a class="button" type="link" id="modalLink" href="" target="_blank" rel="noopener noreferrer">Odkaz na dárek</a>
         
         <!-- Submit to a public controller method -->
         <form asp-controller="GiftList" asp-action="ReserveItem" method="post">
@@ -90,5 +92,17 @@
         setTimeout(() => {
             document.getElementById('reserverName').value = '@ViewBag.CurrentEmail';
         }, 300);
+    }
+
+    function openExternal(url) {
+        
+        const a = document.createElement('a');
+        a.href = url;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
     }
 </script>
