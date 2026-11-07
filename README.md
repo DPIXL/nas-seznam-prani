@@ -1,6 +1,8 @@
 # Náš Seznam Přání
 Neboli osobní rodinná wishlist aplikace.
 
+Odkaz na stránku: https://nasseznamprani-agchanfea2h4fxgx.austriaeast-01.azurewebsites.net
+
 **"Náš Seznam Přání"** je webová stránka (ke které zároveň existuje jednoduchá android aplikace využívající WebView), která vznikla pro účel zjednodušení procesu vzájemného vybírání dárků pro členů rodiny.
 Aplikace primárně vznikla na požadavek mojí drahé Matky, které moc děkuji za příležitost procvičit si práci s ASP .NET server-side webem, a hlavně první příležitost tvořit web s reálným využitím.
 
