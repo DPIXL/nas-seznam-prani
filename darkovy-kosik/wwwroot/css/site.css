@@ -576,6 +576,11 @@ a.button[type="special"], button.special, button[type="special"] {
 .user_actions {
   display: flex;
   gap: 20px;
+  justify-content: center;
+  margin-bottom: 20px;
+  * {
+    flex-grow: 1;
+  }
 }
 
 .admin_panel {
@@ -970,7 +975,7 @@ footer {
     }
 
     h1 {
-      font-size: 1.8rem;
+      font-size: 7vw;
     }
   }
 
@@ -1142,6 +1147,7 @@ footer {
   .user_actions {
     position: static;
     gap: 20px;
+    flex-direction: column;
     justify-content: space-between;
     margin-bottom: 20px;
   }
@@ -1163,8 +1169,28 @@ footer {
   }
 }
 
+@media (min-width: 769px) {
+  #reservesModal {
+    .modal-card {
+      min-width: 40vw;
+    }
+  }
+}
+
 @media (display-mode: standalone) {
   div.apk_header {
     display: none !important;
   }
+}
+
+.nsp-bottom-m-0 {
+  margin-bottom: 0 !important;
+}
+
+.nsp-top-m-0 {
+  margin-top: 0 !important;
+}
+
+.nsp-top-m-20 {
+  margin-top: 20px !important;
 }

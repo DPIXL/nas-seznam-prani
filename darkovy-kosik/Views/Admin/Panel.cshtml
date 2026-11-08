@@ -4,9 +4,7 @@
     ViewData["Title"] = "Administrace";
 }
 <div class="user_actions">
-    <button onclick="event.stopPropagation(); openPasswordModal()" class="changePasswordButton link">Změnit Heslo</button>
     <button onclick="event.stopPropagation(); openReservesModal()" type="button">Moje Rezervace</button>
-    <a asp-controller="Admin" asp-action="Logout" class="button logoutButton" type="cancel">Odhlásit se</a>
 </div>
 <div class="admin_panel">
     <div class="left_side">
@@ -68,62 +66,66 @@
                             <button type="submit" disabled id="submit-@Model.Items[i].Id">Nahrát</button>
                         </form>
                     </span>
-        <span class="popis">
-            <h1>@Model.Items[i].Name</h1>
-            <p class="cena">@Model.Items[i].Price Kč</p>
-        </span>
+                    <span class="popis">
+                        <h1>@Model.Items[i].Name</h1>
+                        <p class="cena">@Model.Items[i].Price Kč</p>
+                    </span>
 
-        <form asp-controller="Admin" asp-action="DeleteItem" method="post">
-            <input type="hidden" name="itemId" value="@Model.Items[i].Id"/>
-            <input type="hidden" name="userId" value="@Model.Items[i].UserId"/>
+                    <form asp-controller="Admin" asp-action="DeleteItem" method="post">
+                        <input type="hidden" name="itemId" value="@Model.Items[i].Id"/>
+                        <input type="hidden" name="userId" value="@Model.Items[i].UserId"/>
 
-            <button type="submit" class="delete">Smazat</button>
-        </form>
-    </div>
+                        <button type="submit" class="delete">Smazat</button>
+                    </form>
+                </div>
             }
         </div>
     </div>
-
-<div id="changePasswordModal" class="modal-overlay">
-    <div class="modal-card">
-        <h2>Změnit Heslo</h2>
-        <p>Zde si můžete změnit vaše heslo.</p>
+    
+    <div id="changePasswordModal" class="modal-overlay">
+        <div class="modal-card">
+            <h2>Změnit Heslo</h2>
+            <p>Zde si můžete změnit vaše heslo.</p>
         
-        <form asp-controller="Admin" asp-action="ChangePassword" method="post">
-            <div class="group">
-                <label for="newPassword">Vaše nové heslo:</label>
-                <input type="text" id="newPassword" name="newPassword" required />
-            </div>
+            <form asp-controller="Admin" asp-action="ChangePassword" method="post">
+                <div class="group">
+                    <label for="newPassword">Vaše nové heslo:</label>
+                    <input type="text" id="newPassword" name="newPassword" required />
+                </div>
             
             
-            <div class="modal-actions">
-                <button type="button" class="delete" onclick="closePasswordModal()">Zrušit</button>
-                <button type="submit">Aktualizovat</button>
-            </div>
-        </form>
-    </div>
-</div>
-
-<div id="reservesModal" class="modal-overlay">
-    <div class="modal-card">
-        <h2>Mnou rezervované dárky</h2>
-        <div class="gifts_list">
-        @for (int i = Model.ReservedItems.Count-1; i >= 0; i--) {
-            <div class="item_card">
-                <span class="image_part">
-                    <img src="@Model.ReservedItems[i].ImageUrl" class="item_photo"/>
-                </span>
-                <span class="popis">
-                    <h1>@Model.ReservedItems[i].Name</h1>
-                    <p class="cena">@Model.ReservedItems[i].Price Kč</p>
-                    <a class="button" type="link" href="@Model.ReservedItems[i].Link" target="_blank" rel="noopener noreferrer">Odkaz</a>
-                </span>
-            </div>
-        }
+                <div class="modal-actions">
+                    <button type="button" class="delete" onclick="closePasswordModal()">Zrušit</button>
+                    <button type="submit">Aktualizovat</button>
+                </div>
+            </form>
         </div>
-        <button type="button" class="delete" onclick="closeReservesModal()">Zrušit</button>
+    </div>
+
+    <div id="reservesModal" class="modal-overlay">
+        <div class="modal-card">
+            <h2>Mnou rezervované dárky</h2>
+            <div class="gifts_list">
+                @for (int i = Model.ReservedItems.Count-1; i >= 0; i--) {
+                    <div class="item_card">
+                        <span class="image_part">
+                            <img src="@Model.ReservedItems[i].ImageUrl" class="item_photo"/>
+                        </span>
+                        <span class="popis">
+                            <h1>@Model.ReservedItems[i].Name</h1>
+                            <p class="cena">@Model.ReservedItems[i].Price Kč</p>
+                            <a class="button" type="link" href="@Model.ReservedItems[i].Link" target="_blank" rel="noopener noreferrer">Odkaz</a>
+                        </span>
+                    </div>
+                }
+            </div>
+            <button type="button" class="delete" onclick="closeReservesModal()">Zrušit</button>
+        </div>
     </div>
 </div>
+<div class="user_actions nsp-bottom-m-0 nsp-top-m-20">
+    <button onclick="event.stopPropagation(); openPasswordModal()" class="changePasswordButton link">Změnit Heslo</button>
+    <a asp-controller="Admin" asp-action="Logout" class="button logoutButton" type="cancel">Odhlásit se</a>
 </div>
 
 <script>
