@@ -191,11 +191,14 @@ public class AdminController : Controller {
     [HttpPost]
     [Authorize]
     public async Task<IActionResult> AddItem([Bind(Prefix = "Item")] Item newItem, IFormFile? uploadedImage) {
-
+        
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == newItem.UserId);
+        
         if (!ModelState.IsValid) {
             PanelDTO dto = new PanelDTO();
             dto.Item = newItem;
             dto.Items = _context.Items.Where(i => i.UserId == newItem.UserId).ToList();
+            dto.ReservedItems = _context.Items.Where(i => i.ReservedBy == user.Email).ToList();
             return View("Panel", dto);
         }
         
