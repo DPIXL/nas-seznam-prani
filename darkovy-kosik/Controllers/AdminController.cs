@@ -304,6 +304,52 @@ public class AdminController : Controller {
 
     [HttpPost]
     [Authorize]
+    public async Task<IActionResult> ChangeBanner(IFormFile banner, string currentPassword) {
+        var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        
+        int userId = int.Parse(userIdString);
+        
+        var user =  await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+        
+        await _context.SaveChangesAsync();
+        
+        return RedirectToAction("Panel", new { id = userId });
+    }
+    
+    [HttpPost]
+    [Authorize]
+    public async Task<IActionResult> ChangeEmail(string email) {
+        var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        
+        int userId = int.Parse(userIdString);
+        
+        var user =  await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+        
+        user.Email = email;
+
+        await _context.SaveChangesAsync();
+        
+        return RedirectToAction("Panel", new { id = userId });
+    }
+    
+    [HttpPost]
+    [Authorize]
+    public async Task<IActionResult> ChangeName(string name) {
+        var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        
+        int userId = int.Parse(userIdString);
+        
+        var user =  await _context.Users.FirstOrDefaultAsync(u => u.Id == userId);
+        
+        user.Name = name;
+
+        await _context.SaveChangesAsync();
+        
+        return RedirectToAction("Panel", new { id = userId });
+    }
+    
+    [HttpPost]
+    [Authorize]
     public async Task<IActionResult> ChangeImage(int itemId, IFormFile uploadedImage) {
         var userIdString = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
         
