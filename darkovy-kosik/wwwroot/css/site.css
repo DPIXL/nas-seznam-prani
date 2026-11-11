@@ -793,6 +793,11 @@ a.button[type="special"], button.special, button[type="special"] {
     a, p {
       margin: 0;
     }
+    
+    .delete_reservation_form {
+      display: flex;
+      justify-content: right;
+    }
   }
 }
 

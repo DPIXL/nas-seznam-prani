@@ -116,6 +116,12 @@
                             <p class="cena">@Model.ReservedItems[i].Price Kč</p>
                             <a class="button" type="link" href="@Model.ReservedItems[i].Link" target="_blank" rel="noopener noreferrer">Odkaz</a>
                         </span>
+                        <span></span>
+                        <form class="delete_reservation_form" asp-controller="Admin" asp-action="DeleteReservation" method="post">
+                            <input type="hidden" name="itemId" value="@Model.ReservedItems[i].Id"/>
+                            <input type="hidden" name="userId" value="@Model.ReservedItems[i].UserId"/>
+                            <button type="submit" class="delete">Smazat</button>
+                        </form>
                     </div>
                 }
             </div>

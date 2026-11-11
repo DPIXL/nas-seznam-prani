@@ -254,6 +254,21 @@ public class AdminController : Controller {
 
     [HttpPost]
     [Authorize]
+    public async Task<IActionResult> DeleteReservation(int itemId, int userId) {
+        
+        var item = await _context.Items.FirstOrDefaultAsync(i => i.Id == itemId);
+
+        item.IsReserved = false;
+        item.ReservedBy = "";
+
+        await _context.SaveChangesAsync();
+        
+        return RedirectToAction("Panel", new { id = userId });
+    }
+    
+    
+    [HttpPost]
+    [Authorize]
     public async Task<IActionResult> DeleteItem(int itemId, int userId) {
         var itemToDelete = await _context.Items.FindAsync(itemId);
     
