@@ -2,7 +2,10 @@ using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
 using darkovy_kosik;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.EntityFrameworkCore;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +24,14 @@ builder.Services.AddAuthentication("WishlistCookieAuth")
         options.ExpireTimeSpan = TimeSpan.FromDays(365);
         options.SlidingExpiration = true;
     });
+
+var keysPath = builder.Environment.IsProduction()
+    ? "/var/lib/wishlist-keys"
+    : Path.Combine(builder.Environment.ContentRootPath, "DataProtection-Keys");
+
+builder.Services.AddDataProtection()
+    .PersistKeysToFileSystem(new DirectoryInfo(keysPath))
+    .SetApplicationName("Wishlist");
 
 var app = builder.Build();
 

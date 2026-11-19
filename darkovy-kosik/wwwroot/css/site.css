@@ -9,11 +9,13 @@
 body {
   display: flex;
   flex-direction: column;
+  background-color: #1a1d20;
   background: url("../img/nsp_background.svg");
   background-size: cover;
   background-attachment: fixed;
   color: white;
   min-height: 100vh;
+  background-color: #1b1b1b;
 
   font-family: 'Google Sans', sans-serif;
 }
@@ -317,6 +319,8 @@ p.error, span.error {
     color: black;
     background-color: white;
     font-weight: bolder;
+    padding: 0 10px;
+    border-radius: 0.5rem;
   }
 
   p.error {
@@ -608,6 +612,7 @@ a.button[type="special"], button.special, button[type="special"] {
       color: black;
       font-weight: bolder;
       padding: 0 10px;
+      border-radius: 0.5rem;
     }
 
     form {
